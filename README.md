@@ -1,5 +1,5 @@
 # College
 
-College assignments and projects in a variety of languages including but not limited to: Java, Processing, Verilog, ARM assembly, MATLAB, R and others.
+College assignments and projects in a variety of languages including but not limited to: Java, Python, C, Processing, VHDL, XML, UML, Excel, Verilog, ARM Assembly, MATLAB, R and others.
 
 Continually growing as I progress through my degree!
