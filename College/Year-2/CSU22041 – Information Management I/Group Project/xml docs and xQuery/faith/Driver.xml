@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Can have zero or more drivers -->
+<!DOCTYPE Drivers [ <!ELEMENT Drivers (Driver)*>
+
+<!-- Each of the drivers must have one and only one of these
+elements-->
+<!ELEMENT Driver (Driver.driverID, Driver.rating, Driver.phoneNumber, orderDelivered)>
+
+<!-- Drivers rating -->
+<!ELEMENT Driver.rating (#PCDATA)>
+<!-- Drivers phone number-->
+<!ELEMENT Driver.phoneNumber (#PCDATA)>
+<!-- Drivers id number -->
+<!ELEMENT Driver.driverID (#PCDATA)>
+<!-- orderDelivered used to show connection between order and driver class this element will hold order id that was delivered by a driver-->
+<!ELEMENT orderDelivered (#PCDATA)>
+<!-- id reference of driver used in association -->
+<!ATTLIST Driver idref CDATA #REQUIRED>
+]>
+
+<Drivers>
+    <!--1st Instance of driver class-->
+  <Driver idref="22">
+    <Driver.driverID>4136</Driver.driverID>
+    <Driver.rating>4.0</Driver.rating>
+    <Driver.phoneNumber>0876547890</Driver.phoneNumber>
+    <orderDelivered>12</orderDelivered>
+  </Driver>
+    <!--2nd Instance of driver class-->
+  <Driver idref="23">
+    <Driver.driverID>2135</Driver.driverID>
+    <Driver.rating>3.0</Driver.rating>
+    <Driver.phoneNumber>0856404567</Driver.phoneNumber>
+    <orderDelivered>13</orderDelivered>
+  </Driver>
+</Drivers>

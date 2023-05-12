@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Can have zero or more orders -->
+<!DOCTYPE Orders [ <!ELEMENT Orders (Order)*>
+
+<!-- Each of the orders must have one and only one of these
+elements-->
+<!ELEMENT Order (Order.orderStatus, Order.orderLocation, Order.orderDetails, Order.orderAddress,
+Order.orderDriver, Order.estimatedArrival)>
+
+<!-- Orders status for knowing at what stage order is of delivery process-->
+<!ELEMENT Order.orderStatus (#PCDATA)>
+<!-- Orders location  -->
+<!ELEMENT Order.orderLocation (#PCDATA)>
+<!-- Orders details for knwoing what customer ordered-->
+<!ELEMENT Order.orderDetails (#PCDATA)>
+<!-- Orders address for driver to know what address to deliver to-->
+<!ELEMENT Order.orderAddress (#PCDATA)>
+<!-- Orders driver for knowing what driver is delivering the order-->
+<!ELEMENT Order.orderDriver (#PCDATA)>
+<!-- Orders estimated arrival -->
+<!ELEMENT Order.estimatedArrival (#PCDATA)>
+<!-- Order id for recognising order-->
+<!ATTLIST Order id CDATA #REQUIRED>
+]>
+
+<Orders>
+  <!--1st Instance of order class-->
+  <Order id="12">
+    <Order.orderStatus>Preparing</Order.orderStatus>
+    <Order.orderLocation>Dublin</Order.orderLocation>
+    <Order.orderDetails>Caesar Salad</Order.orderDetails>
+    <Order.orderAddress>3 Yellow Brick Road</Order.orderAddress>
+    <Order.orderDriver>Manuel Darma</Order.orderDriver>
+    <Order.estimatedArrival>45 Minutes</Order.estimatedArrival>
+  </Order>
+  <!-- 2nd Instance of order class-->
+  <Order id="13">
+    <Order.orderStatus>Completed</Order.orderStatus>
+    <Order.orderLocation>Cork</Order.orderLocation>
+    <Order.orderDetails>Steak Sandwich</Order.orderDetails>
+    <Order.orderAddress>44 Dame Street</Order.orderAddress>
+    <Order.orderDriver>Constance May</Order.orderDriver>
+    <Order.estimatedArrival>20 Minutes</Order.estimatedArrival>
+  </Order>
+</Orders>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Start DTD -->
+<!DOCTYPE ConsumerAccounts [
+<!-- Consumer Accounts, can be 0, 1 or multiple -->
+<!ELEMENT ConsumerAccounts (ConsumerAccount)*>
+
+<!-- Each account must have 1 and only 1 element of listed below, except a presence of Feedback -->
+  <!ELEMENT ConsumerAccount (Consumer.Name,Consumer.CardInformation,Consumer.HomeAddress,Consumer.Menu,Consumer.Feedback?)>
+
+  <!-- Each account can or can't have one of different titles specified, one or more firstname and only one surname -->
+  <!ELEMENT Consumer.Name (title*,firstName+,surname)>
+  <!-- Consumer's title -->
+  <!ELEMENT title (#PCDATA)>
+  <!-- Consumer's first name -->
+  <!ELEMENT firstName (#PCDATA)>
+  <!-- Consumer's surname -->
+  <!ELEMENT surname (#PCDATA)>
+
+<!-- Each account must have every element of card information specified only once -->
+  <!ELEMENT Consumer.CardInformation (cardNumber,expiryDateYear,expiryDateMonth,cardFirstName,cardSurname)>
+  <!-- Customer card's number -->
+  <!ELEMENT cardNumber (#PCDATA)>
+  <!-- Customer card's expiry date year -->
+  <!ELEMENT expiryDateYear (#PCDATA)>
+  <!-- Customer card's expiry date month -->
+  <!ELEMENT expiryDateMonth (#PCDATA)>
+  <!-- Customer card's first name -->
+  <!ELEMENT cardFirstName (#PCDATA)>
+  <!-- Customer card's surname -->
+  <!ELEMENT cardSurname (#PCDATA)>
+
+<!-- The Consumer's home adress, has one and only one of each elements -->
+  <!ELEMENT Consumer.HomeAddress (street,houseNumber,city,zip)>
+  <!-- Consumer's street -->
+  <!ELEMENT street (#PCDATA)>
+  <!-- Consumer's house number -->
+  <!ELEMENT houseNumber (#PCDATA)>
+  <!-- Consumer's city -->
+  <!ELEMENT city (#PCDATA)>
+  <!-- Consumer's zip -->
+  <!ELEMENT zip (#PCDATA)>
+
+<!-- The Consumer's Menu, could be multiple dishes chosen with one or more quantity of chosen dish-->
+  <!ELEMENT Consumer.Menu (restaurant,dish*,quantity+)>
+  <!-- Consumer's menu restaurant chosen -->
+  <!ELEMENT restaurant (#PCDATA)>
+  <!-- Consumer's menu dish chosen -->
+  <!ELEMENT dish (#PCDATA)>
+  <!-- Consumer's menu dish quantity chosen -->
+  <!ELEMENT quantity (#PCDATA)>
+
+<!-- The consumer's Feedback left -->
+  <!ELEMENT Consumer.Feedback (#PCDATA)>
+
+<!-- Each Account must have it's own ID number -->
+  <!ATTLIST ConsumerAccount Consumer.IDNumber CDATA #REQUIRED>
+]>
+
+<!-- Instatniation of a list of accounts -->
+<ConsumerAccounts>
+
+   <!--First instatniation of an account-->
+   <ConsumerAccount Consumer.IDNumber = "145645567">
+      <Consumer.Name>
+         <title>Ms</title>
+         <firstName>Mary</firstName>
+         <surname>Jane</surname>
+      </Consumer.Name>
+      <Consumer.CardInformation>
+         <cardNumber>3957294750285104</cardNumber>
+         <expiryDateYear>26</expiryDateYear>
+         <expiryDateMonth>09</expiryDateMonth>
+         <cardFirstName>Mary</cardFirstName>
+         <cardSurname>Jane</cardSurname>
+      </Consumer.CardInformation>
+      <Consumer.HomeAddress>
+         <street>Morrison Chambers</street>
+         <houseNumber>47</houseNumber>
+         <city>Dublin</city>
+         <zip>34587</zip>
+      </Consumer.HomeAddress>
+      <Consumer.Menu>
+         <restaurant>The Ivy Dublin</restaurant>
+         <dish>Chicken Burger</dish>
+         <quantity>1</quantity>
+      </Consumer.Menu>
+      <Consumer.Feedback>null</Consumer.Feedback>
+   </ConsumerAccount>
+
+<!--Second instatniation of a menu-->
+<ConsumerAccount Consumer.IDNumber = "145645344">
+   <Consumer.Name>
+      <title>Ms</title>
+      <firstName>Mary</firstName>
+      <surname>Jane</surname>
+   </Consumer.Name>
+   <Consumer.CardInformation>
+      <cardNumber>3957294750285104</cardNumber>
+      <expiryDateYear>26</expiryDateYear>
+      <expiryDateMonth>09</expiryDateMonth>
+      <cardFirstName>Mary</cardFirstName>
+      <cardSurname>Jane</cardSurname>
+   </Consumer.CardInformation>
+   <Consumer.HomeAddress>
+      <street>Morrison Chambers</street>
+      <houseNumber>47</houseNumber>
+      <city>Dublin</city>
+      <zip>34587</zip>
+   </Consumer.HomeAddress>
+   <Consumer.Menu>
+      <restaurant>The Ivy Dublin</restaurant>
+      <dish>Chicken Burger</dish>
+      <quantity>1</quantity>
+   </Consumer.Menu>
+   <Consumer.Feedback>null</Consumer.Feedback>
+</ConsumerAccount>
+
+</ConsumerAccounts>

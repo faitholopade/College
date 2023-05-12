@@ -1,0 +1,29 @@
+Relates to order food use case:
+
+for $j in 
+doc("Order.xml")/Orders/Order/Order.orderDetails
+return
+("Order Details Node:", $j)
+
+Relates to deliver food use case:
+
+let $c := 
+doc("data/Driver.xml")/Drivers/Driver/Driver.rating
+
+return 
+    <Driver_Rating>
+        {$c}
+    </Driver_Rating>
+
+Relates to deliver food use case:
+
+for $w in doc("Driver.xml")/Drivers/Driver, $x in doc("Order.xml")/Orders/Order
+where $w/orderDelivered = $x/@id
+return
+<orderDeliveredbyDriver>
+    {$w/Driver.driverID}
+    {$w/Driver.phoneNumber}
+    {$w/orderDelivered}
+</orderDeliveredbyDriver>
+
+

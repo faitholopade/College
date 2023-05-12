@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='ISO-8859-1' standalone='no' ?>
+<!-- Start DTD -->
+<!DOCTYPE Payments[
+<!-- can have 0 or more Payment-->
+<!ELEMENT Payments (Payment)*>
+
+<!-- each Payment must have one and only one of the following elements -->
+<!ELEMENT Payment (Payment.orderID, Payment.customerID, Payment.date, Payment.totalToPay, Payment.paymentMethod)>
+
+<!-- id number specifying the order that is being payed for -->
+<!ELEMENT Payment.orderID (#PCDATA)>
+<!-- id number specifying the customer who is making the Payment -->
+<!ELEMENT Payment.customerID (#PCDATA)>
+<!-- date of Payment -->
+<!ELEMENT Payment.date (#PCDATA)>
+<!-- amount to be paid -->
+<!ELEMENT Payment.totalToPay (#PCDATA)>
+<!-- chosen method of Payment -->
+<!ELEMENT Payment.paymentMethod (#PCDATA)>
+<!-- Payment identification number (added as an attribute) -->
+<!ATTLIST Payment Payment.ID CDATA #REQUIRED>
+]>
+<!-- start XML -->
+<Payments>
+    <!-- 1st instance of order class -->
+    <Payment Payment.ID = "22346284">
+        <Payment.orderID>53624385</Payment.orderID>
+        <Payment.customerID>43948327</Payment.customerID>
+        <Payment.date>20211230</Payment.date>
+        <Payment.totalToPay>40.25</Payment.totalToPay>
+        <Payment.paymentMethod>1</Payment.paymentMethod>
+    </Payment>
+    <!-- 2nd instance of order class -->
+    <Payment Payment.ID = "99675123">
+        <Payment.orderID>776548765</Payment.orderID>
+        <Payment.customerID>43948327</Payment.customerID>
+        <Payment.date>20211221</Payment.date>
+        <Payment.totalToPay>12.50</Payment.totalToPay>
+        <Payment.paymentMethod>2</Payment.paymentMethod>
+    </Payment>
+</Payments>
+
+

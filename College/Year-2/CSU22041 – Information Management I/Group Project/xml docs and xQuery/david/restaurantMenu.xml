@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<!--We can have amultitude of menus for various restaurants and locations or none if we are in a location with no service-->
+<!DOCTYPE RestaurantsMenus[<!ELEMENT RestaurantsMenus (RestaurantMenu*)>
+
+<!--Each menu must hava an ID to be used to view the specific menu-->
+<!ATTLIST RestaurantMenu MenuID CDATA #REQUIRED>
+
+<!--A restaurants menu is built out of multiple items available on the menu-->
+<!ELEMENT RestaurantMenu (MenuItem*)>
+
+<!--Each item on the menu must have its own code-->
+<!ATTLIST MenuItem itemID CDATA #REQUIRED>
+
+<!--The menu items must have a name and price. A rating is optional and can have multiple allergens and details or none-->
+<!ELEMENT MenuItem   (dishName, dishPrice, dishRating?, dishAllergens*, dishDetails*)>
+
+<!--The menu items name-->
+<!ELEMENT dishName   (#PCDATA)>
+
+<!--The menu items rating-->
+<!ELEMENT dishRating   (#PCDATA)>
+
+<!--The menu items price-->
+<!ELEMENT dishPrice   (#PCDATA)>
+
+<!--The menu items allergens-->
+<!ELEMENT dishAllergens  (#PCDATA)>
+
+<!--The menu items details-->
+<!ELEMENT dishDetails  (#PCDATA)>
+]>
+
+<!--Instatniation of a list menus-->
+<RestaurantsMenus>
+<!--First instatniation of a menu-->
+  <RestaurantMenu MenuID = "0">
+<!--First instatniation of a menu item-->
+    <MenuItem itemID = "2">
+      <dishName>TastyBucket</dishName>
+      <dishPrice>1.99</dishPrice>
+      <dishRating> 4.99</dishRating>
+      <dishAllergens>mustard</dishAllergens>
+      <dishAllergens>gluten</dishAllergens>
+      <dishAllergens>dairy</dishAllergens>
+      <dishDetails> A bucket of an asortment of the tastyest tasty stuff on the the planet. May or may not be addicting. Consume at your own risk!</dishDetails>
+    </MenuItem>
+<!--Second instatniation of a menu item-->
+    <MenuItem itemID = "1">
+      <dishName>LilMac</dishName>
+      <dishPrice>99.99</dishPrice>
+      <dishRating> 2.2</dishRating>
+      <dishAllergens>eggs</dishAllergens>
+      <dishAllergens>mustard</dishAllergens>
+      <dishAllergens>sesame</dishAllergens>
+      <dishAllergens>gluten</dishAllergens>
+      <dishDetails> A delicious burger with legendary 3 patties stacked on eachother seperated by slices of buns or special CLASSIFIED sauce and sliced carots.</dishDetails>
+    </MenuItem>
+<!--Third instatniation of a menu item-->    
+    <MenuItem itemID = "3">
+      <dishName>Kidyy Meal</dishName>
+      <dishPrice>29.99</dishPrice>
+      <dishRating> 4.2</dishRating>
+      <dishAllergens>eggs</dishAllergens>
+      <dishAllergens>mustard</dishAllergens>
+      <dishAllergens>sesame</dishAllergens>
+      <dishAllergens>gluten</dishAllergens>
+      <dishDetails> A delicious meal for the little ones with a small plastic toy that may be a choking hazard. If might come with the food but they whouldn't eat it, right?</dishDetails>
+     </MenuItem>
+  </RestaurantMenu>
+  <!--Second instatniation of a menu-->
+  <RestaurantMenu MenuID = "1">
+  <!--First instatniation of a menu item-->
+     <MenuItem itemID = "1">
+      <dishName>Test Meal</dishName>
+      <dishPrice>0.01</dishPrice>
+      <dishAllergens>eggs</dishAllergens>
+      <dishAllergens>mustard</dishAllergens>
+      <dishAllergens>sesame</dishAllergens>
+      <dishAllergens>gluten</dishAllergens>
+      <dishDetails>How about somthing new? Try it out and tell us what you think!</dishDetails>
+      </MenuItem>
+  </RestaurantMenu>
+</RestaurantsMenus>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--can have zero or more admins-->
+<!DOCTYPE Admins [ <!ELEMENT Admins (Admin)*>
+<!--each admin must have each of the below elements-->
+<!ELEMENT Admin (Admin.IDNumber, Admin.password, paymentFromRestuarantAccount)>
+<!--password for logging into the system-->
+<!ELEMENT Admin.password (#PCDATA)>
+<!--ID Number for identification purposes-->
+<!ELEMENT Admin.IDNumber (#PCDATA)>
+<!--payment recieved from restaurant account-->
+<!ELEMENT paymentFromRestuarantAccount (#PCDATA)>
+<!-- id reference for correct identification-->
+<!ATTLIST Admin idref CDATA #REQUIRED>
+]>
+<!--this documnet contains all current admins-->
+<Admins>
+<!--contains all necessary information for an admin-->
+  <Admin idref="24">
+    <Admin.IDNumber>2444</Admin.IDNumber>
+    <Admin.password>forgroup20</Admin.password>
+    <paymentFromRestuarantAccount>14</paymentFromRestuarantAccount>
+  </Admin>
+  <Admin idref="25">
+    <Admin.IDNumber>3986</Admin.IDNumber>
+    <Admin.password>xmlme</Admin.password>
+    <paymentFromRestuarantAccount>15</paymentFromRestuarantAccount>
+  </Admin>
+</Admins>

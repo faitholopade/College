@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='ISO-8859-1' standalone='no' ?>
+
+<!DOCTYPE CustomerServices [ <!ELEMENT CustomerServices (CustomerService)*>
+<!ELEMENT CustomerService (CustomerService.employeeID, CustomerService.status
+, CustomerService.feedback)>
+
+<!ELEMENT CustomerService.employeeID (#PCDATA)>
+<!ELEMENT CustomerService.status (#PCDATA)>
+<!ELEMENT CustomerService.feedback (customerComment, foodComplaint, deliveryComplaint)>
+<!ELEMENT customerComment (#PCDATA)>
+<!ELEMENT foodComplaint (#PCDATA)>
+<!ELEMENT deliveryComplaint (#PCDATA)>
+<!ATTLIST CustomerService CustomerService.issueID CDATA #REQUIRED>
+]>
+
+<CustomerServices>
+	<CustomerService CustomerService.issueID = "2134509">
+		<CustomerService.employeeID>4301290</CustomerService.employeeID>
+		<CustomerService.status>false</CustomerService.status>
+		<CustomerService.feedback>
+			<customerComment>food was cold</customerComment>
+			<foodComplaint>true</foodComplaint>
+			<deliveryComplaint>false</deliveryComplaint>
+		</CustomerService.feedback>
+	</CustomerService>
+
+	<CustomerService CustomerService.issueID = "3245721">
+		<CustomerService.employeeID>3485960</CustomerService.employeeID>
+		<CustomerService.status>false</CustomerService.status>
+		<CustomerService.feedback>
+			<customerComment>Delivery took over 90 minutes</customerComment>
+			<foodComplaint>false</foodComplaint>
+			<deliveryComplaint>true</deliveryComplaint>
+		</CustomerService.feedback>
+	</CustomerService>
+</CustomerServices>
+		
+
+

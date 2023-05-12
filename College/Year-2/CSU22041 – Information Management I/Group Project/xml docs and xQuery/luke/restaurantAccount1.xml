@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='ISO-8859-1' standalone='no' ?>
+
+<!DOCTYPE RestaurantAccounts
+<!-- can have zero or more restaurant accounts-->
+[<!ELEMENT RestaurantAccounts (RestaurantAccount*)>
+<!-- each restaurant account must have one of each of these elements-->
+<!ELEMENT RestaurantAccount (RestaurantAccount.name, RestaurantAccount.IDNumber, RestaurantAccount.businessHours, RestaurantAccount.customerInfo, RestaurantAccount.item, RestaurantAccount.food)>
+<!-- first name for distinguishing correct customer-->
+<!ELEMENT RestaurantAccount.name (#PCDATA)>
+<!-- order ID Number for identification--> 
+<!ELEMENT RestaurantAccount.IDNumber (#PCDATA)>
+<!-- hours worked for correct payment purposes-->
+<!ELEMENT RestaurantAccount.businessHours (#PCDATA)>
+<!-- customer info for contacting and delivery purposes-->
+<!ELEMENT RestaurantAccount.customerInfo (#PCDATA)>
+<!-- item used for serving-->
+<!ELEMENT RestaurantAccount.item (#PCDATA)>
+<!-- food selected by customer-->
+<!ELEMENT RestaurantAccount.food (#PCDATA)>
+<!--staff id number for correct identification-->
+<!ATTLIST RestaurantAccount id CDATA #REQUIRED>
+]>
+<!-- this document stores all current restaurant accounts-->
+<RestaurantAccounts>
+	<!-- contains all necessary information for a restaurant account-->
+	<RestaurantAccount id = "14"> 
+		<RestaurantAccount.name>Luke</RestaurantAccount.name>
+		<RestaurantAccount.IDNumber>21365366</RestaurantAccount.IDNumber>
+		<RestaurantAccount.businessHours>40</RestaurantAccount.businessHours>
+		<RestaurantAccount.customerInfo> Mary John, 0899444678, 3 Yellow Birck</RestaurantAccount.customerInfo>
+		<RestaurantAccount.item>Plate</RestaurantAccount.item>
+		<RestaurantAccount.food>Soup</RestaurantAccount.food>
+	</RestaurantAccount>
+	<!-- second instance of a restaurant account-->
+	<RestaurantAccount id = "15"> 
+		<RestaurantAccount.name>Faith</RestaurantAccount.name>
+		<RestaurantAccount.IDNumber>21364066</RestaurantAccount.IDNumber>
+		<RestaurantAccount.businessHours>24</RestaurantAccount.businessHours>
+		<RestaurantAccount.customerInfo> Sint Louis, 0876654632, 49 Mount Willow</RestaurantAccount.customerInfo>
+		<RestaurantAccount.item>Bowl</RestaurantAccount.item>
+		<RestaurantAccount.food>Salad</RestaurantAccount.food>
+	</RestaurantAccount>
+</RestaurantAccounts>
