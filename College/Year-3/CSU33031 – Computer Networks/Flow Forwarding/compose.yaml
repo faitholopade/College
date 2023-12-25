@@ -1,0 +1,146 @@
+# Defines a small topology of 3 routers, 4 networks and 2 endpoints
+# docker compose -f compose.yaml --profile routers up -d
+# docker compose -f compose.yaml --profile endpoints --profile routers up -d
+# docker compose -f compose.yaml --profile routers --profile endpoints down -t 1
+services:
+  tcpdump:
+    build:
+      context: .
+      dockerfile: ./tcpdump/Dockerfile
+    network_mode: "host"
+    volumes:
+      - ./pcap:/pcap
+  # 3 routers connecting networks
+  router1:
+    profiles: ["routers"]
+    image: "pycimage"
+    build: .
+    volumes:
+      - .:/compnets
+    command: python3 router.py router1
+    stdin_open: true
+    tty: true
+    environment:
+      HOSTNAME: router1
+    networks:
+      - stub1
+      - trans1
+
+  router2:
+    profiles: ["routers"]
+    image: "pycimage"
+    build: .
+    volumes:
+      - .:/compnets
+    command: python3 router.py router2
+    stdin_open: true
+    tty: true
+    environment:
+      HOSTNAME: router2
+    networks:
+      - trans1
+      - trans2
+
+  router3:
+    profiles: ["routers"]
+    image: "pycimage"
+    build: .
+    volumes:
+      - .:/compnets
+    command: python3 router.py router3
+    stdin_open: true
+    tty: true
+    environment:
+      HOSTNAME: router3
+    networks:
+      - stub2
+      - trans2
+
+  # 4 endpoints creating traffic
+  endpoint1:
+    profiles: ["endpoints"]
+    image: "pycimage"
+    build: .
+    volumes:
+      - .:/compnets
+    command: python3 endpoint.py router1 1
+    stdin_open: true
+    tty: true
+    depends_on:
+      - router1
+    environment:
+      HOSTNAME: endpoint1
+    networks:
+      - stub1
+
+  endpoint2:
+    profiles: ["endpoints"]
+    image: "pycimage"
+    build: .
+    volumes:
+      - .:/compnets
+    command: python3 endpoint.py router3 2
+    stdin_open: true
+    tty: true
+    depends_on:
+      - router3
+    environment:
+      HOSTNAME: endpoint2
+    networks:
+      - stub2
+  
+  endpoint3:
+    profiles: ["endpoints"]
+    image: "pycimage"
+    build: .
+    volumes:
+      - .:/compnets
+    command: python3 endpoint.py router1 3
+    stdin_open: true
+    tty: true
+    depends_on:
+      - router1
+    environment:
+      HOSTNAME: endpoint3
+    networks:
+      - stub1
+
+  endpoint4:
+    profiles: ["endpoints"]
+    image: "pycimage"
+    build: .
+    volumes:
+      - .:/compnets
+    command: python3 endpoint.py router3 4
+    stdin_open: true
+    tty: true
+    depends_on:
+      - router3
+    environment:
+      HOSTNAME: endpoint4
+    networks:
+      - stub2
+
+# 2 Stub networks and 2 transient networks
+networks:
+  stub1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.0.0/24
+  stub2:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.10.0/24
+  trans1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.21.0.0/24
+  trans2:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/24
+
