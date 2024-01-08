@@ -1,0 +1,38 @@
+THEORY Ex5Q2
+IMPORT-THEORY Equality
+IMPORT-THEORY Boolean
+IMPORT-THEORY Arithmetic
+IMPORT-THEORY List
+IMPORT-HASKELL List
+IMPORT-HASKELL Ex5
+
+THEOREM ex5q2
+   frec 500 == 225000
+
+STRATEGY ReduceAll
+
+  frec 500 == 225000
+  = DEF frec
+  (if 500 <= 5 then 9 else 500 * frec (500 `div` 10)) == 225000
+  = SIMP
+  (if False then 9 else 500 * frec (50)) == 225000
+  = IF 2
+  (500 * frec (50)) == 225000
+  = DEF frec
+  (500 * (if 50 <= 5 then 9 else 50 * frec (50 `div` 10))) == 225000
+  = SIMP
+  (500 * (if False then 9 else 50 * frec (5))) == 225000
+  = IF 2
+  (500 * (50 * frec (5))) == 225000
+  = DEF frec
+  (500 * (50 * (if 5 <= 5 then 9 else 5 * frec (5 `div` 10)))) == 225000
+  = SIMP
+  (500 * (50 * (if True then 9 else 5 * frec (0)))) == 225000
+  = IF 1
+  (500 * (50 * 9)) == 225000
+  = SIMP
+  True
+  
+END ReduceAll
+
+QED ex5q2
