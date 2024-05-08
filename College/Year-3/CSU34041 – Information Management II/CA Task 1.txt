@@ -1,0 +1,41 @@
+CREATE TABLE Customers (
+    CustomerID int NOT NULL AUTO_INCREMENT,
+    CustomerName varchar(255) NOT NULL,
+    ContactName varchar(255),
+    Address varchar(255),
+    City varchar(255) NOT NULL,
+    PostalCode text,
+    Country varchar(255) NOT NULL,
+    PRIMARY KEY (CustomerID)
+);
+
+INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country) VALUES
+('Jim Moore', 'James Moore', 'Frederick Street', 'Berlin', '12209', 'Germany'),
+('Jane Smith', 'Jane Smith', 'Kevin Street', 'Mexico D.F.', '12207', 'Mexico'),
+('Lucille Connors', 'Lucille Connors', 'Tpwnsend Street', 'Mexico D.F.', '12207', 'Mexico'),
+('Phil Nolan', 'Philip Nolan', 'Sundale Road', 'London', 'WA1 1DP', 'UK'),
+('Veronica Green', 'Veronica Green', 'Shipyard Lane', 'Lulea', 'S958 22', 'Sweden');
+
+
+SELECT * FROM Customers;
+
+SELECT DISTINCT Country FROM Customers;
+
+SELECT * FROM Customers WHERE City='Berlin';
+
+SELECT * FROM Customers WHERE City='Berlin'AND PostalCode='12209';
+
+SELECT * FROM Customers ORDER BY City ASC;
+
+INSERT INTO Customers (CustomerName, City, Country) VALUES ('Cardinal', 'Stavanger', 'Norway');
+
+SELECT * FROM Customers WHERE PostalCode IS NULL;
+
+SELECT * FROM Customers WHERE PostalCode IS NOT NULL;
+
+UPDATE Customers SET CustomerName = 'John Smith' WHERE Country = 'UK';
+
+DELETE FROM Customers WHERE PostalCode = '12209';
+
+SELECT DISTINCT Country FROM Customers WHERE Country LIKE '%e%' ORDER BY Country ASC;
+

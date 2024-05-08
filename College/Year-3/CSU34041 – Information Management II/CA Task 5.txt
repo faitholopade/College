@@ -1,0 +1,168 @@
+Name: Faith Olopade
+ID: 21364066
+
+A) YES, completed
+CREATE TABLE EMPLOYEE (
+
+    Fname VARCHAR(50) NOT NULL,
+    Minit CHAR(1) NOT NULL, 
+    Lname VARCHAR(50) NOT NULL,
+    Ssn CHAR(9) PRIMARY KEY NOT NULL,
+    Bdate VARCHAR(10) NOT NULL,
+    Address VARCHAR(255) NOT NULL,
+    Sex CHAR(1) NOT NULL,
+    Salary INT NOT NULL,
+    Super_ssn CHAR(9), 
+    FOREIGN KEY(Super_ssn) REFERENCES EMPLOYEE(Ssn),
+    Dno INT NOT NULL, 
+    FOREIGN KEY(Dno) REFERENCES DEPARTMENT(Dnumber)
+
+);
+
+CREATE TABLE DEPARTMENT (
+
+    Dname VARCHAR(50) NOT NULL,
+    Dnumber INT NOT NULL PRIMARY KEY,
+    Mgr_ssn CHAR(9) NOT NULL, 
+    FOREIGN KEY(Mgr_ssn) REFERENCES EMPLOYEE(Ssn),
+    Mgr_start_date VARCHAR(10) NOT NULL
+
+);
+
+CREATE TABLE DEPT_LOCATIONS (
+
+    Dnumber INT NOT NULL, 
+    FOREIGN KEY(Dnumber) REFERENCES DEPARTMENT(Dnumber),
+    Dlocation VARCHAR(50) NOT NULL,
+    PRIMARY KEY (Dnumber, Dlocation)
+
+);
+
+CREATE TABLE PROJECT (
+
+    Pname VARCHAR(50) NOT NULL,
+    Pnumber INT NOT NULL PRIMARY KEY,
+    Plocation VARCHAR(50) NOT NULL,
+    Dnum INT NOT NULL, 
+    FOREIGN KEY(Dnum) REFERENCES DEPARTMENT(Dnumber)
+
+);
+
+CREATE TABLE WORKS_ON (
+
+    Essn CHAR(9) NOT NULL, 
+    FOREIGN KEY(Ssn) REFERENCES EMPLOYEE(Essn),
+    Pno INT NOT NULL, 
+    FOREIGN KEY(Pno) REFERENCES PROJECT(Pnumber),
+    PRIMARY KEY (Pno, Essn),
+    Hours FLOAT 
+
+);
+
+CREATE TABLE DEPENDENT (
+
+    Essn CHAR(9) NOT NULL, 
+    FOREIGN KEY(Essn) REFERENCES EMPLOYEE(Ssn),
+    Dependent_name VARCHAR(50) NOT NULL,
+    Sex Char(1) NOT NULL,
+    Bdate VARCHAR(10) NOT NULL,   
+    Relationship VARCHAR(50) NOT NULL,
+    PRIMARY KEY (Essn, Dependent_name)   
+
+);
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO EMPLOYEE (Fname, Minit, Lname, Ssn, Bdate, Address, Sex, Salary, Super_ssn, Dno)
+VALUES 
+    ('John', 'B', 'Smith', '123456789', '1965-01-09', '731 Fondren, Houston, TX', 'M', 30000, '333445555', 5),
+    ('Franklin', 'T', 'Wong', '333445555', '1955-12-08', '638 Voss, Houston, TX', 'M', 40000, '888665555', 5),
+    ('Alicia', 'J', 'Zelaya', '999887777', '1968-01-19', '3321 Castle, Spring, TX', 'F', 25000, '987654321', 4),
+    ('Jennifer', 'S', 'Wallace', '987654321', '1941-06-20', '291 Berry Bellaire, TX', 'F', 43000, '888665555', 4),
+    ('Ramesh', 'K', 'Narayan', '66688444', '1962-09-15', '975 Fire Oak, Humble, TX', 'M', 38000, '333445555', 5),
+    ('Joyce', 'A', 'English', '453453453', '1972-07-31', '5631 Rice, Houston, TX', 'F', 25000, '333445555', 5),
+    ('Ahmad', 'V', 'Jabbar', '987987987', '1969-03-29', '980 Dallas, Houston, TX', 'M', 25000, '987654321', 4),
+    ('James', 'E', 'Borg', '888665555', '1937-11-10', '450 Stone, Houston, TX', 'M', 55000, NULL, 1);
+
+INSERT INTO DEPARTMENT (Dname, Dnumber, Mgr_ssn, Mgr_start_date)
+VALUES
+    ('Research', 5, '333445555', '1988-05-22'),
+    ('Administration', 4, '987654321', '1995-01-01'),
+    ('Headquarters', 1, '888665555', '1981-06-19');
+
+INSERT INTO DEPT_LOCATIONS (Dnumber, Dlocation)
+VALUES
+    (1, 'Houston'),
+    (4, 'Stafford'),
+    (5, 'Bellaire'),
+    (5, 'Sugarland'),
+    (5, 'Houston');
+
+INSERT INTO PROJECT (Pname, Pnumber, Plocation, Dnum)
+VALUES
+    ('ProductX', 1, 'Bellaire', 5),
+    ('ProductY', 2, 'Sugarland', 5),
+    ('ProductZ', 3, 'Houston', 5),
+    ('Computerization', 10, 'Stafford', 4),
+    ('Reorganization', 20,'Houston', 1),
+    ('Newbenefits', 30, 'Stafford', 4);
+
+INSERT INTO DEPENDENT (Essn, Dependent_name, Sex, Bdate, Relationship)
+VALUES  
+    ('333445555', 'Alice', 'F', '1986-04-05', 'Daughter'),
+    ('333445555', 'Theodore', 'M', '1983-10-25', 'Son'),
+    ('333445555', 'Joy', 'F', '1958-05-03', 'Spouse'),
+    ('987654321', 'Abner', 'M', '1942-02-28', 'Spouse'),
+    ('123456789', 'Michael', 'M', '1988-01-04', 'Son'),
+    ('123456789', 'Alice', 'F', '1988-12-30', 'Daughter'),
+    ('123456789', 'Elizabeth', 'F', '1967-05-05', 'Spouse');
+
+INSERT INTO WORKS_ON (Essn, Pno, Hours)
+VALUES
+    ('123456789', 1, 32.5),
+    ('123456789', 2, 7.5),
+    ('666884444', 3, 40.0),
+    ('453453453', 1, 20.0),
+    ('453453453', 2, 20.0),
+    ('333445555', 2, 10.0),
+    ('333445555', 3, 10.0),
+    ('333445555', 10, 10.0),
+    ('333445555', 20, 10.0),
+    ('999887777', 30, 30.0),
+    ('999887777', 10, 10.0),
+    ('987987987', 10, 35.0),
+    ('987987987', 30, 5.0),
+    ('987654321', 30, 20.0),
+    ('987654321', 20, 15.0),
+    ('888665555', 20, NULL);
+
+
+B) NO, reason why: SQL does not allow inserting NULL into a column that is defined as a primary key (Pnumber in this case)
+INSERT INTO PROJECT (Pname, Pnumber, Plocation, Dnum) VALUES ('Terrible Project', NULL, 'Dublin', 4);
+
+C) YES, because the Hours column can accept NULL values, and both Essn and Pno are valid and satisfy foreign key constraints.
+INSERT INTO WORKS_ON (Essn, Pno, Hours) VALUES ('888665555', 3, NULL);
+
+D) NO, reason why: There's already an entry for the combination of Dnumber 5 and Dlocation 'Houston', violating the primary key constraint.
+INSERT INTO DEPT_LOCATIONS (Dnumber, Dlocation) VALUES (5, 'Houston');
+
+E) NO, reason why: The Dno 9 does not exist in the DEPARTMENT table, violating the foreign key constraint.
+INSERT INTO EMPLOYEE (Fname, Minit, Lname, Ssn, Bdate, Address, Sex, Salary, Super_ssn, Dno) VALUES ('Janet', 'F,', 'Smith', '677678989', '1960-04-05', '6357 Windswept, Katy, TX', 'F', 28000, '987654321', 9);
+
+F) YES, because this command matches existing tuples and does not violate any constraints.
+DELETE FROM DEPENDENT WHERE Dependent_name = 'Elizabeth';
+
+G) YES, but will only succeed if no other table has a foreign key dependency on the tuples being deleted 
+DELETE FROM DEPARTMENT WHERE Mgr_ssn = '333445555';
+
+H) YES, no foreign key constraints are violated.
+DELETE FROM EMPLOYEE WHERE Bdate = '1965-01-09';
+
+I) NO, can't be NULL
+UPDATE DEPARTMENT SET Mgr_ssn = NULL WHERE Dno = 4;
+
+J) YES, because this operation does not violate any constraints.
+UPDATE EMPLOYEE SET Bdate = '1983-09-25' WHERE Ssn = '333445555';
+
+K) NO, causes duplicate
+UPDATE WORKS_ON SET Pno = 21 WHERE Essn = '123456789';
