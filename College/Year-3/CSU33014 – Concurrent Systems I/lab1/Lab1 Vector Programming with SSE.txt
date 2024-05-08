@@ -1,0 +1,17 @@
+Lab1 Vector Programming with SSE
+Attached Files:
+File lab1.zip (3.566 KB)
+Please download the file lab1.zip, and unzip:
+unzip lab1.zip
+The zip file contains four files: lab1-code.c, lab1-code.h, lab1-main.c, and Makefile.
+Of these four files, you should modify only lab1-code.c. Please follow the instructions in the file lab1-code.c, and add vectorized code for each of the six empty vectorized routines.
+To compile your code type:
+make all
+To test whether your code is working type:
+make test
+When you type make test you will get a number for each test, where the number is some measure of the difference between the output of the original non-vectorized code and the vectorized version. Before you write your vectorized code, the differences will be large. Your vectorized code should produce outputs where the difference is either zero in most cases, or very small in cases where you change the order of floating point evaluation.
+You should submit your solution using Blackboard. Please upload all four files, but please make changes only to the file lab1-code.c.
+The mark breakdown for the different parts is:
+Routine 1 - 5:  8 marks each
+Routine 6:  10 marks
+Maximum total: 50 marks
