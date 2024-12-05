@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Packing App</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Background Video -->
+    <video autoplay muted loop id="background-video">
+      <source
+        src="https://cdn.pixabay.com/video/2021/04/27/72406-542491366_large.mp4"
+        type="video/mp4"
+      />
+      Your browser does not support the video tag.
+    </video>
+
+    <div id="app">
+      <div class="app-container">
+        <div class="header">
+          <h1 class="app-title">Weather Packing App</h1>
+          <p class="app-subtitle">Plan your trip with confidence!</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <input
+            v-model="city"
+            @input="getCitySuggestions"
+            id="city"
+            type="text"
+            placeholder="Enter City (e.g., Dublin)"
+            class="city-input"
+          />
+          <button @click="getWeather" class="search-button">Search</button>
+          <button @click="getCurrentLocationWeather" class="search-button">
+            Use Current Location
+          </button>
+        </div>
+
+        <!-- City Suggestions Dropdown -->
+        <ul v-if="suggestions.length" class="suggestions-dropdown">
+          <li
+            v-for="suggestion in suggestions"
+            :key="suggestion.name"
+            @click="selectCity(suggestion)"
+          >
+            {{ suggestion.name }} ({{ suggestion.country }})
+          </li>
+        </ul>
+
+        <!-- Error Message -->
+        <div v-if="error" class="error-message">{{ error }}</div>
+
+        <!-- Current Weather Section -->
+        <div v-if="currentWeather" class="current-weather-container">
+          <h2>
+            {{ currentLocation ? currentLocation : city }}, {{
+            formatDate(currentWeather.dt) }}, Current Forecast
+          </h2>
+          <p>
+            {{ currentWeather.temp }}°C, Feels like {{ currentWeather.feels_like
+            }}°C. {{ currentWeather.weather[0].description }}. Wind: {{
+            currentWeather.wind_speed }} m/s {{ currentWeather.wind_deg }}°.
+          </p>
+          <p>
+            Visibility: {{ currentWeather.visibility / 1000 }} km, Humidity: {{
+            currentWeather.humidity }}%, Pressure: {{ currentWeather.pressure }}
+            hPa.
+          </p>
+          <p>Dew point: {{ currentWeather.dew_point }}°C</p>
+        </div>
+
+        <!-- Air Pollution Warning -->
+        <div v-if="airPollutionWarning" class="air-pollution-warning">
+          <h3>Air Quality Warning</h3>
+          <p>{{ airPollutionWarning }}</p>
+        </div>
+
+        <!-- Forecast Section -->
+        <div v-if="forecast.length" class="forecast-container">
+          <h2>Packing Recommendations</h2>
+          <div class="packing-advice">
+            <p v-if="needsUmbrella">It's going to rain, bring an umbrella!</p>
+            <p>Pack for: {{ packingAdvice }}</p>
+          </div>
+
+          <h2 class="forecast-title">3-Day Weather Forecast</h2>
+          <div class="forecast-cards">
+            <div
+              v-for="(day, index) in forecast"
+              :key="day.dt"
+              :class="['weather-card', weatherClass(day)]"
+              :style="{'background-image': backgroundImage(day)}"
+            >
+              <p class="date">{{ new Date(day.dt * 1000).toDateString() }}</p>
+              <img
+                :src="`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`"
+                alt="Weather Icon"
+              />
+              <div class="weather-details">
+                <div class="temp-info">
+                  <span class="label">Temperature:</span> {{ day.main.temp }}°C
+                </div>
+                <div class="wind-info">
+                  <span class="label">Wind Speed:</span> {{ day.wind.speed }}
+                  m/s
+                </div>
+                <div class="rain-info">
+                  <span class="label">Rain:</span> {{ day.rain ? day.rain['3h']
+                  || day.rain['1h'] || 0 : 0 }} mm
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            city: "",
+            forecast: [],
+            currentWeather: null,
+            error: "",
+            needsUmbrella: false,
+            packingAdvice: "",
+            currentLocation: "",
+            suggestions: [], // For city suggestions
+            airPollutionWarning: "", // Warning message for air pollution
+          };
+        },
+        methods: {
+          // Fetch weather based on city input
+          async getWeather() {
+            if (!this.city) {
+              this.error = "Please enter a city name.";
+              return;
+            }
+            try {
+              this.clearError();
+              const response = await fetch(
+                `http://localhost:3000/weather/${this.city}`
+              );
+              const data = await response.json();
+              const {
+                coord: { lon, lat },
+              } = data.city;
+              this.currentWeather = this.formatWeatherData(data.list[0]);
+              this.forecast = this.getUniqueDailyForecast(data.list);
+              this.currentLocation = this.city;
+              await this.getAirPollutionData(lat, lon);
+              this.evaluatePackingAdvice();
+              this.suggestions = [];
+            } catch (err) {
+              this.handleError();
+            }
+          },
+
+          // Fetch weather based on geolocation
+          async getCurrentLocationWeather() {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(async (position) => {
+                const { latitude: lat, longitude: lon } = position.coords;
+                try {
+                  this.clearError();
+                  const response = await fetch(
+                    `http://localhost:3000/weather/location?lat=${lat}&lon=${lon}`
+                  );
+                  const data = await response.json();
+                  this.currentWeather = this.formatWeatherData(data.list[0]);
+                  this.forecast = this.getUniqueDailyForecast(data.list);
+                  this.currentLocation = "Current Location";
+                  await this.getAirPollutionData(lat, lon);
+                  this.evaluatePackingAdvice();
+                } catch (err) {
+                  this.handleError();
+                }
+              });
+            } else {
+              this.error = "Geolocation is not supported by this browser.";
+            }
+          },
+
+          // Format fetched weather data
+          formatWeatherData(data) {
+            return {
+              dt: data.dt || Date.now() / 1000,
+              temp: data.main.temp,
+              feels_like: data.main.feels_like,
+              weather: data.weather,
+              wind_speed: data.wind.speed,
+              wind_deg: data.wind.deg,
+              visibility: data.visibility,
+              humidity: data.main.humidity,
+              pressure: data.main.pressure,
+              dew_point: data.main.temp,
+            };
+          },
+
+          // Fetch air pollution data
+          async getAirPollutionData(lat, lon) {
+            try {
+              const response = await fetch(
+                `http://localhost:3000/air-pollution?lat=${lat}&lon=${lon}`
+              );
+              const data = await response.json();
+              const elevatedPollutants = this.evaluateAirPollution(data);
+              this.airPollutionWarning =
+                elevatedPollutants.length > 0
+                  ? `The following pollutants have elevated levels: ${elevatedPollutants.join(
+                      ", "
+                    )}. Please be cautious.`
+                  : "";
+            } catch (error) {
+              console.error("Error fetching air pollution data:", error);
+            }
+          },
+
+          // Evaluate air pollution levels
+          evaluateAirPollution(data) {
+            const components = data.list[0].components;
+            const thresholds = {
+              co: 4400,
+              no2: 40,
+              pm10: 20,
+              pm2_5: 10,
+              o3: 60,
+              so2: 20,
+            };
+            const elevatedPollutants = [];
+            for (const [pollutant, value] of Object.entries(thresholds)) {
+              if (components[pollutant] > value)
+                elevatedPollutants.push(
+                  `${pollutant.toUpperCase()}: ${components[pollutant]} µg/m³`
+                );
+            }
+            return elevatedPollutants;
+          },
+
+          // Fetch city suggestions from server
+          async getCitySuggestions() {
+            if (!this.city) return;
+            try {
+              const response = await fetch(
+                `http://localhost:3000/city-suggestions?query=${this.city}`
+              );
+              this.suggestions = await response.json();
+            } catch (err) {
+              console.error("Error fetching city suggestions:", err);
+            }
+          },
+
+          // Select city from suggestions
+          selectCity(suggestion) {
+            this.city = suggestion.name;
+            this.getWeather();
+          },
+
+          // Format date from Unix timestamp
+          formatDate(unixTimestamp) {
+            const date = new Date(unixTimestamp * 1000);
+            const day = date.getDate().toString().padStart(2, "0");
+            const month = (date.getMonth() + 1).toString().padStart(2, "0");
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+          },
+
+          // Get unique daily forecast data
+          getUniqueDailyForecast(forecastList) {
+            const dailyForecasts = [];
+            const addedDates = new Set();
+            forecastList.forEach((item) => {
+              const date = new Date(item.dt * 1000).toDateString();
+              if (!addedDates.has(date)) {
+                dailyForecasts.push(item);
+                addedDates.add(date);
+              }
+            });
+            return dailyForecasts.slice(0, 3);
+          },
+
+          // Determine packing advice based on forecast
+          evaluatePackingAdvice() {
+            this.needsUmbrella = this.forecast.some(
+              (day) => day.rain && day.rain["3h"] > 0
+            );
+            const temperatures = this.forecast.map((day) => day.main.temp);
+            const maxTemp = Math.max(...temperatures);
+            const minTemp = Math.min(...temperatures);
+            if (minTemp < 8) {
+              this.packingAdvice = "Cold weather (below 8°C)";
+            } else if (maxTemp > 24) {
+              this.packingAdvice = "Hot weather (above 24°C)";
+            } else {
+              this.packingAdvice = "Mild weather (8°C to 24°C)";
+            }
+          },
+
+          // Clear error message
+          clearError() {
+            this.error = "";
+          },
+
+          // Handle error
+          handleError() {
+            this.error = "Error fetching weather data. Please try again.";
+            this.currentWeather = null;
+            this.forecast = [];
+          },
+
+          // Get background image based on weather condition
+          backgroundImage(day) {
+            const weatherCondition = day.weather[0].main.toLowerCase();
+            const backgrounds = {
+              clear:
+                'url("https://cdn.pixabay.com/photo/2018/08/06/22/55/sun-3588618_1280.jpg")',
+              clouds:
+                'url("https://cdn.pixabay.com/photo/2020/07/04/06/41/clouds-5368444_1280.jpg")',
+              rain: 'url("https://cdn.pixabay.com/photo/2021/08/14/05/33/raindrop-6544618_1280.jpg")',
+              snow: 'url("https://cdn.pixabay.com/photo/2022/05/12/10/02/mountains-7191235_1280.jpg")',
+            };
+            return backgrounds[weatherCondition] || "";
+          },
+
+          // Assign CSS class based on weather condition
+          weatherClass(day) {
+            if (day.weather[0].main === "Rain") return "rainy";
+            if (day.weather[0].main === "Clear") return "sunny";
+            if (day.weather[0].main === "Clouds") return "cloudy";
+            return "mild";
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
