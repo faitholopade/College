@@ -1,0 +1,24 @@
+# ninja log v6
+3	98	7569415857304751	external/glad-3.3/CMakeFiles/glad.dir/src/gl.c.obj	c94c124158901bfb
+34	189	7569415857632991	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_time.c.obj	605e9d1bc078c660
+31	195	7569415857599075	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_monitor.c.obj	713385b79101a6ec
+19	199	7569415857473328	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/monitor.c.obj	a81796e6bd950617
+38	203	7569415857653689	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_tls.c.obj	c2d1d7b0ad1d1a3a
+23	209	7569415857519051	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/window.c.obj	6548c3c2e5243a22
+7	215	7569415857346756	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/context.c.obj	943cf5621366a555
+15	216	7569415857441800	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/input.c.obj	61af53b47350f5a
+27	216	7569415857556961	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_init.c.obj	2919f2aec7135a97
+12	216	7569415857404816	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/init.c.obj	e383d3e549f66aca
+209	261	7569415859328220	glad.lib	58c88751fb61e5df
+98	291	7569415858261587	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_window.c.obj	588c1065dd6119ac
+190	332	7569415859180643	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/winmm_joystick.c.obj	a4da9bc81a834218
+195	339	7569415859240329	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/wgl_context.c.obj	f2f2432eaed31c9e
+203	584	7569415859310583	CMakeFiles/lab3_cornellbox.dir/lab3/render/shader.cpp.obj	57709697584ed406
+339	604	7569415863109066	glfw3.dll	43661f13d6f0730c
+339	604	7569415863109066	glfw3dll.lib	43661f13d6f0730c
+199	652	7569415859274884	CMakeFiles/lab3_cornellbox.dir/lab3/lab3_cornellbox.cpp.obj	c74f5d1938f449b
+658	934	7569415863866493	lab3_cornellbox.exe	5f83f06b623f32f0
+3	449	7569419648295369	CMakeFiles/lab3_cornellbox.dir/lab3/lab3_cornellbox.cpp.obj	c74f5d1938f449b
+449	637	7569419652758179	lab3_cornellbox.exe	5f83f06b623f32f0
+4	421	7569422306578928	CMakeFiles/lab3_cornellbox.dir/lab3/lab3_cornellbox.cpp.obj	c74f5d1938f449b
+421	604	7569422310754912	lab3_cornellbox.exe	5f83f06b623f32f0

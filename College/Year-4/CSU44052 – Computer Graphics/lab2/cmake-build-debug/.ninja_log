@@ -1,0 +1,24 @@
+# ninja log v6
+2	68	7514985748469992	external/glad-3.3/CMakeFiles/glad.dir/src/gl.c.obj	2f1c9203b7a82985
+45	227	7514905363983875	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_tls.c.obj	f18a2116dab1ecf
+30	240	7514905363832388	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/window.c.obj	f7645b37e4123206
+17	234	7514905363703006	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/init.c.obj	93c91bd4d4238edf
+34	256	7514905363872974	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_init.c.obj	b92cb90740eb2a3d
+21	245	7514905363749795	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/input.c.obj	af4a9e2968dfbc4e
+38	249	7514905363913311	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_monitor.c.obj	8e5fca619b490c1c
+10	256	7514905363632561	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/context.c.obj	228f7c071e84f36d
+25	257	7514905363792398	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/monitor.c.obj	411dd6801b084b9f
+68	282	7514985749124481	glad.dll	b7a00b6b0eaf035d
+42	257	7514905363953856	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_time.c.obj	275f0d53aea397b9
+68	282	7514985749124481	glad.lib	b7a00b6b0eaf035d
+228	387	7514905365818974	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/winmm_joystick.c.obj	7317258e35c411ae
+396	663	7514905369933083	glfw3dll.lib	43661f13d6f0730c
+166	388	7514905365193890	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_window.c.obj	452999a623b9352d
+234	396	7514905365878964	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/wgl_context.c.obj	6361eac81ce9493d
+245	635	7514905365990834	CMakeFiles/lab2_building.dir/lab2/render/shader.cpp.obj	2a95d8ad41cd010a
+396	663	7514905369933083	glfw3.dll	43661f13d6f0730c
+4	410	7514935877902887	CMakeFiles/lab2_building.dir/lab2/lab2_building.cpp.obj	6d76a2343e2e7067
+466	602	7514985753114274	lab2_building.exe	3e33895c17426261
+6	466	7514985748510360	CMakeFiles/lab2_building.dir/lab2/lab2.cpp.obj	77c9d62011627e
+2	404	7550386187310383	CMakeFiles/lab2_building.dir/lab2/lab2.cpp.obj	77c9d62011627e
+404	531	7550386191329892	lab2_building.exe	3e33895c17426261
